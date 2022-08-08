@@ -30,7 +30,7 @@ export class ProductsService {
         _id: id,
       },
       {
-        updateProductDto,
+        $set: updateProductDto,
       },
       {
         new: true,
