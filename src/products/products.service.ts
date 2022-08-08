@@ -12,22 +12,37 @@ export class ProductsService {
   ) {}
 
   create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+    const product = new this.productModel(createProductDto);
+    return product.save();
   }
 
   findAll() {
-    return `This action returns all products`;
+    return this.productModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  findOne(id: string) {
+    return this.productModel.findById(id);
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  update(id: string, updateProductDto: UpdateProductDto) {
+    return this.productModel.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        updateProductDto,
+      },
+      {
+        new: true,
+      },
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  remove(id: string) {
+    return this.productModel
+      .deleteOne({
+        _id: id,
+      })
+      .exec();
   }
 }
